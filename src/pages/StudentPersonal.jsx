@@ -47,9 +47,25 @@ function StudentPersonal() {
   };
 
   const validate = () => {
-    // Validation bypassed
-    setErrors({});
-    return true;
+    const newErrors = {};
+    if (!form.fullName.trim()) newErrors.fullName = "Full Name is required.";
+    if (!form.fatherName.trim()) newErrors.fatherName = "Father's Name is required.";
+    if (!form.motherName.trim()) newErrors.motherName = "Mother's Name is required.";
+    if (!form.dob) newErrors.dob = "Date of Birth is required.";
+    if (!form.gender) newErrors.gender = "Gender is required.";
+    if (!form.nationality.trim()) newErrors.nationality = "Nationality is required.";
+    if (!form.category) newErrors.category = "Category is required.";
+    if (!form.bloodGroup) newErrors.bloodGroup = "Blood Group is required.";
+    if (!form.email.trim()) newErrors.email = "Email is required.";
+    if (!form.mobile.trim()) newErrors.mobile = "Mobile Number is required.";
+    
+    if (!form.permAddressLine1.trim()) newErrors.permAddressLine1 = "Address is required.";
+    if (!form.permCity.trim()) newErrors.permCity = "City is required.";
+    if (!form.permState.trim()) newErrors.permState = "State is required.";
+    if (!form.permPincode.trim()) newErrors.permPincode = "Pincode is required.";
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleNext = () => {

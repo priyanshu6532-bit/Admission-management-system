@@ -26,9 +26,12 @@ function StudentDeclaration() {
   };
 
   const validate = () => {
-    // Validation bypassed
-    setErrors({});
-    return true;
+    const newErrors = {};
+    if (!form.declarationAccepted) {
+      newErrors.declarationAccepted = "You must accept the declaration to proceed.";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handlePrevious = () => {

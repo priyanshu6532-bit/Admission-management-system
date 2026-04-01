@@ -108,7 +108,6 @@ export const createStudentApplication = async (draft, token) => {
       graduationPercentage: draft.gradPercent,
 
       // Step 3: Course
-      campusLocation: draft.campus,
 
       // Step 4: Declaration
       declarationAccepted: draft.declarationAccepted

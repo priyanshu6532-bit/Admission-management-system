@@ -6,11 +6,22 @@ import { useNavigate, Link } from "react-router-dom";
 function Login() {
   const [data, setData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  const validate = () => {
+    const errs = {};
+    if (!data.username.trim()) errs.username = "Email / Username is required";
+    if (!data.password) errs.password = "Password is required";
+    setFieldErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validate()) return;
+    
     try {
       const res = await loginUser(data);
       login(res.data);
@@ -37,34 +48,37 @@ function Login() {
           </div>
           <div className="card-body">
             {error && <div className="alert alert-danger p-2">{error}</div>}
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} noValidate>
               <div className="mb-3">
-                <label className="form-label">Email / Username</label>
+                <label className="form-label">Email / Username <span className="text-danger">*</span></label>
                 <input
                   type="text"
-                  className="form-control"
+                  className={`form-control ${fieldErrors.username ? "is-invalid" : ""}`}
                   value={data.username}
-                  onChange={(e) =>
-                    setData({ ...data, username: e.target.value })
-                  }
-                  required
+                  onChange={(e) => {
+                    setData({ ...data, username: e.target.value });
+                    setFieldErrors({ ...fieldErrors, username: "" });
+                  }}
                 />
+                {fieldErrors.username && <div className="invalid-feedback">{fieldErrors.username}</div>}
               </div>
 
               <div className="mb-4">
-                <label className="form-label">Password</label>
+                <label className="form-label">Password <span className="text-danger">*</span></label>
                 <input
                   type="password"
-                  className="form-control"
+                  className={`form-control ${fieldErrors.password ? "is-invalid" : ""}`}
                   value={data.password}
-                  onChange={(e) =>
-                    setData({ ...data, password: e.target.value })
-                  }
-                  required
+                  onChange={(e) => {
+                    setData({ ...data, password: e.target.value });
+                    setFieldErrors({ ...fieldErrors, password: "" });
+                  }}
                 />
+                {fieldErrors.password && <div className="invalid-feedback">{fieldErrors.password}</div>}
               </div>
 
               <button
+                type="submit"
                 className="btn w-100 text-white mb-3"
                 style={{ backgroundColor: "#1d4ed8", border: "none" }}
               >

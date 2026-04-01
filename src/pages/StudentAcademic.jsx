@@ -39,9 +39,20 @@ function StudentAcademic() {
   };
 
   const validate = () => {
-    // Validation bypassed
-    setErrors({});
-    return true;
+    const newErrors = {};
+    if (!form.tenthBoard.trim()) newErrors.tenthBoard = "10th Board is required.";
+    if (!form.tenthSchool.trim()) newErrors.tenthSchool = "10th School is required.";
+    if (!form.tenthYear.trim()) newErrors.tenthYear = "10th Year is required.";
+    if (!form.tenthPercent.trim()) newErrors.tenthPercent = "10th Percentage is required.";
+    
+    if (!form.twelfthBoard.trim()) newErrors.twelfthBoard = "12th Board is required.";
+    if (!form.twelfthSchool.trim()) newErrors.twelfthSchool = "12th School is required.";
+    if (!form.twelfthStream) newErrors.twelfthStream = "12th Stream is required.";
+    if (!form.twelfthYear.trim()) newErrors.twelfthYear = "12th Year is required.";
+    if (!form.twelfthPercent.trim()) newErrors.twelfthPercent = "12th Percentage is required.";
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleNext = () => {

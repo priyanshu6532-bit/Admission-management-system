@@ -20,9 +20,13 @@ function VisitorForm() {
   };
 
   const validate = () => {
-    // Validation bypassed
-    setErrors({});
-    return true;
+    const newErrors = {};
+    if (!form.name.trim()) newErrors.name = "Name is required.";
+    if (!form.email.trim()) newErrors.email = "Email is required.";
+    if (!form.phone.trim()) newErrors.phone = "Phone number is required.";
+    if (!form.courseInterested) newErrors.courseInterested = "Please select a course.";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
