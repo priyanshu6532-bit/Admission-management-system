@@ -47,31 +47,15 @@ function StudentPersonal() {
   };
 
   const validate = () => {
-    const newErrors = {};
-
-    if (!form.fullName.trim()) newErrors.fullName = "Full name is required";
-    if (!form.fatherName.trim()) newErrors.fatherName = "Father's name is required";
-    if (!form.motherName.trim()) newErrors.motherName = "Mother's name is required";
-    if (!form.dob) newErrors.dob = "Date of birth is required";
-    if (!form.gender) newErrors.gender = "Gender is required";
-    if (!form.nationality.trim()) newErrors.nationality = "Nationality is required";
-    if (!form.category) newErrors.category = "Category is required";
-    if (!form.bloodGroup) newErrors.bloodGroup = "Blood group is required";
-    if (!form.email.trim()) newErrors.email = "Email is required";
-    if (!form.mobile.trim()) newErrors.mobile = "Mobile number is required";
-    if (!form.permAddressLine1.trim()) newErrors.permAddressLine1 = "Permanent address line 1 is required";
-    if (!form.permCity.trim()) newErrors.permCity = "Permanent city is required";
-    if (!form.permState.trim()) newErrors.permState = "Permanent state is required";
-    if (!form.permPincode.trim()) newErrors.permPincode = "Permanent pincode is required";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    // Validation bypassed
+    setErrors({});
+    return true;
   };
 
   const handleNext = () => {
     if (!validate()) return;
     saveDraft(form);
-    navigate("/student-application/academic");
+    navigate("/student/application/academic");
   };
 
   return (

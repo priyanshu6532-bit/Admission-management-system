@@ -1,29 +1,33 @@
 import { useState } from "react";
 import { loginUser } from "../services/api";
 import useAuth from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
   const [data, setData] = useState({ username: "", password: "" });
-  const [role, setRole] = useState("student");
+  const [error, setError] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await loginUser(data);
-    login(res.data.token);
+    try {
+      const res = await loginUser(data);
+      login(res.data);
 
-    if (role === "admin") {
-      navigate("/admin");
-    } else {
-      navigate("/student-application");
+      if (res.data.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/student");
+      }
+    } catch (err) {
+      setError(err || "Login failed");
     }
   };
 
   return (
-    <div className="row justify-content-end">
-      <div className="col-md-6 col-lg-4">
+    <div className="row justify-content-center">
+      <div className="col-md-6 col-lg-5">
         <div className="card shadow-lg border-0 mt-5">
           <div
             className="card-header text-white text-center"
@@ -32,43 +36,10 @@ function Login() {
             <h4>Login</h4>
           </div>
           <div className="card-body">
+            {error && <div className="alert alert-danger p-2">{error}</div>}
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label className="form-label d-block mb-2">Login as</label>
-                <div className="d-flex gap-3">
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="role"
-                      id="roleStudent"
-                      value="student"
-                      checked={role === "student"}
-                      onChange={(e) => setRole(e.target.value)}
-                    />
-                    <label className="form-check-label" htmlFor="roleStudent">
-                      Student
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="role"
-                      id="roleAdmin"
-                      value="admin"
-                      checked={role === "admin"}
-                      onChange={(e) => setRole(e.target.value)}
-                    />
-                    <label className="form-check-label" htmlFor="roleAdmin">
-                      Admin
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-3">
-                <label className="form-label">Username</label>
+                <label className="form-label">Email / Username</label>
                 <input
                   type="text"
                   className="form-control"
@@ -94,11 +65,18 @@ function Login() {
               </div>
 
               <button
-                className="btn w-100 text-white"
+                className="btn w-100 text-white mb-3"
                 style={{ backgroundColor: "#1d4ed8", border: "none" }}
               >
                 Login
               </button>
+
+              <div className="text-center">
+                <span className="text-muted">Don't have an account? </span>
+                <Link to="/register" className="text-decoration-none fw-bold">
+                  Register now
+                </Link>
+              </div>
             </form>
           </div>
         </div>

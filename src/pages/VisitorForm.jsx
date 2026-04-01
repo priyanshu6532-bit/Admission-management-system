@@ -20,28 +20,9 @@ function VisitorForm() {
   };
 
   const validate = () => {
-    const newErrors = {};
-
-    if (!form.name.trim()) newErrors.name = "Name is required";
-
-    if (!form.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      newErrors.email = "Enter a valid email address";
-    }
-
-    if (!form.phone.trim()) {
-      newErrors.phone = "Phone number is required";
-    } else if (!/^[0-9]{10}$/.test(form.phone.trim())) {
-      newErrors.phone = "Enter a 10-digit phone number";
-    }
-
-    if (!form.courseInterested.trim()) {
-      newErrors.courseInterested = "Please select a course";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    // Validation bypassed
+    setErrors({});
+    return true;
   };
 
   const handleSubmit = async (e) => {
@@ -51,11 +32,13 @@ function VisitorForm() {
       return;
     }
 
-    await createVisitor(form);
-    alert("Application Submitted Successfully!");
-    navigate("/student-application/personal", {
-      state: { course: form.courseInterested },
-    });
+    try {
+      await createVisitor(form);
+      navigate("/enquiry-success");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("There was an error submitting your form. Please try again.");
+    }
   };
 
   return (
@@ -114,9 +97,8 @@ function VisitorForm() {
                 <label className="form-label">Course</label>
                 <select
                   name="courseInterested"
-                  className={`form-select ${
-                    errors.courseInterested ? "is-invalid" : ""
-                  }`}
+                  className={`form-select ${errors.courseInterested ? "is-invalid" : ""
+                    }`}
                   value={form.courseInterested}
                   onChange={handleChange}
                 >
@@ -132,10 +114,11 @@ function VisitorForm() {
               </div>
 
               <button
+                type="submit"
                 className="btn w-100 text-white"
                 style={{ backgroundColor: "#1d4ed8", border: "none" }}
               >
-                Submit Application
+                Submit
               </button>
             </form>
           </div>

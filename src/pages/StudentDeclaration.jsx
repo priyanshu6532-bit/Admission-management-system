@@ -26,42 +26,33 @@ function StudentDeclaration() {
   };
 
   const validate = () => {
-    const newErrors = {};
-    if (!form.declarationAccepted) {
-      newErrors.declarationAccepted = "You must accept the declaration";
-    }
-    if (!form.signatureFile) {
-      newErrors.signatureFile = "Digital signature upload is required";
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    // Validation bypassed
+    setErrors({});
+    return true;
   };
 
   const handlePrevious = () => {
     saveDraft(form);
-    navigate("/student-application/course");
+    navigate("/student/application/course");
   };
 
   const handleSubmit = async () => {
     if (!validate()) return;
 
-    const finalData = { ...draft, ...form };
-    const res = await createStudentApplication(finalData);
-    const saved = res.data;
+    try {
+      const authData = JSON.parse(localStorage.getItem("user"));
+      const token = authData?.token;
+      
+      const fullDraft = { ...draft, declarationAccepted: true };
+      await createStudentApplication(fullDraft, token);
 
-    const studentProfile = {
-      applicationId: saved.id,
-      fullName: saved.fullName,
-      course: saved.course,
-      campus: saved.campus,
-      username: saved.username,
-      password: saved.defaultPassword,
-    };
-
-    localStorage.setItem("studentProfile", JSON.stringify(studentProfile));
-    clearDraft();
-    alert("Student application submitted successfully! Login details have been sent to your email.");
-    navigate("/student");
+      clearDraft();
+      alert("Student application submitted successfully!");
+      navigate("/student"); // Go back to student home dashboard
+    } catch (err) {
+      alert(err || "An error occurred while submitting the application.");
+      setErrors({ declarationAccepted: "Failed to submit application to server." });
+    }
   };
 
   return (

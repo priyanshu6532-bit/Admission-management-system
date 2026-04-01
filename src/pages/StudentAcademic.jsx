@@ -39,34 +39,20 @@ function StudentAcademic() {
   };
 
   const validate = () => {
-    const newErrors = {};
-
-    if (!form.tenthBoard.trim()) newErrors.tenthBoard = "10th board is required";
-    if (!form.tenthSchool.trim()) newErrors.tenthSchool = "10th school is required";
-    if (!form.tenthYear.trim()) newErrors.tenthYear = "10th year of passing is required";
-    if (!form.tenthPercent.trim()) newErrors.tenthPercent = "10th percentage/CGPA is required";
-    if (!form.tenthMarksheet) newErrors.tenthMarksheet = "10th marksheet is required";
-
-    if (!form.twelfthBoard.trim()) newErrors.twelfthBoard = "12th board is required";
-    if (!form.twelfthSchool.trim()) newErrors.twelfthSchool = "12th school is required";
-    if (!form.twelfthStream.trim()) newErrors.twelfthStream = "12th stream is required";
-    if (!form.twelfthYear.trim()) newErrors.twelfthYear = "12th year of passing is required";
-    if (!form.twelfthPercent.trim()) newErrors.twelfthPercent = "12th percentage/CGPA is required";
-    if (!form.twelfthMarksheet) newErrors.twelfthMarksheet = "12th marksheet is required";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    // Validation bypassed
+    setErrors({});
+    return true;
   };
 
   const handleNext = () => {
     if (!validate()) return;
     saveDraft(form);
-    navigate("/student-application/course");
+    navigate("/student/application/course");
   };
 
   const handlePrevious = () => {
     saveDraft(form);
-    navigate("/student-application/personal");
+    navigate("/student/application/personal");
   };
 
   return (

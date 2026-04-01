@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
-import SSMLogo from "../assets/images/SSM.png";
+import SMLogo from "../assets/images/SSM.png";
 
 export default function Home() {
   return (
     <div
       className="min-vh-100 w-100 d-flex flex-column align-items-center"
       style={{
-        backgroundImage: `url(${SSMLogo})`,
+        backgroundImage: `url(${SMLogo})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
         backgroundColor: "rgba(0,0,0,0.6)",
         backgroundBlendMode: "overlay",
       }}
@@ -18,7 +19,7 @@ export default function Home() {
       <section className="flex-grow-1 d-flex align-items-center justify-content-center w-100">
         <div className="text-center" style={{ maxWidth: "720px" }}>
           <h1 className="display-4 fw-bold text-white mb-3">
-            Welcome to SSM College
+            Welcome to BVICAM College
           </h1>
 
           <p className="fs-5 text-light mb-4">
@@ -32,7 +33,7 @@ export default function Home() {
               className="btn btn-lg px-5 py-2 rounded-pill shadow-sm"
               style={{ backgroundColor: "#1d4ed8", color: "#ffffff", border: "none" }}
             >
-              Apply Now
+              Generate Enquiry
             </Link>
             <Link
               to="/login"

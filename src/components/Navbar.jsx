@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import SSMLogo from "../assets/images/SSM.png";
+import BVILogo from "../assets/images/BVI.png";
 
 function Navbar() {
   const location = useLocation();
@@ -10,20 +10,18 @@ function Navbar() {
       className="navbar navbar-dark bg-dark"
       style={{ minHeight: "15vh" }}
     >
-      <div className="container d-flex flex-column justify-content-between h-100 py-2">
-        <div className="d-flex justify-content-between align-items-center w-100">
-          <Link className="navbar-brand d-flex align-items-center fw-bold fs-4" to="/">
-            <img
-              src={SSMLogo}
-              alt="SSM College Logo"
-              style={{ height: 40, marginRight: 8 }}
-            />
-            <span>SSM College</span>
-          </Link>
-        </div>
+      <div className="container d-flex flex-row align-items-center justify-content-between h-100 py-2">
+        <Link className="navbar-brand d-flex align-items-center fw-bold fs-4" to="/">
+          <img
+            src={BVILogo}
+            alt="BVICAM College Logo"
+            style={{ height: 40, marginRight: 8 }}
+          />
+          <span>BVICAM</span>
+        </Link>
 
         {isHome && (
-          <div className="d-flex justify-content-end w-100 mb-1 gap-3">
+          <div className="d-flex gap-3">
             <Link
               to="/about"
               className="text-light text-decoration-none"

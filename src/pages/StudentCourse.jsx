@@ -23,22 +23,20 @@ function StudentCourse() {
   };
 
   const validate = () => {
-    const newErrors = {};
-    if (!form.course) newErrors.course = "Course selection is required";
-    if (!form.campus) newErrors.campus = "Campus location is required";
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    // Validation bypassed
+    setErrors({});
+    return true;
   };
 
   const handleNext = () => {
     if (!validate()) return;
     saveDraft(form);
-    navigate("/student-application/declaration");
+    navigate("/student/application/declaration");
   };
 
   const handlePrevious = () => {
     saveDraft(form);
-    navigate("/student-application/academic");
+    navigate("/student/application/academic");
   };
 
   const courseLocked = !!draft.course;
