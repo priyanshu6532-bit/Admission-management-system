@@ -54,9 +54,22 @@ export const registerUser = async (data) => {
 };
 
 export const loginUser = async (data) => {
+  // --- Temporary Hardcoded Admin Login ---
+  if (data.username === "admin@bvicam.in" && data.password === "admin123") {
+    return {
+      data: {
+        name: "Administrator",
+        email: "admin@bvicam.in",
+        role: "admin",
+        token: "mock-admin-token"
+      }
+    };
+  }
+  // ---------------------------------------
+
   try {
     const loginPayload = {
-      email: data.username, // UI uses username state piece but sets it to email string
+      email: data.username,
       password: data.password
     };
     const response = await axios.post(`${API_BASE_URL}/auth/login`, loginPayload);

@@ -18,6 +18,9 @@ import StudentLayout from "./pages/StudentLayout";
 import StudentHome from "./pages/StudentHome";
 import StudentApplication from "./pages/StudentApplication";
 
+import AdminLayout from "./pages/AdminLayout";
+import AdminApplications from "./pages/AdminApplications";
+
 function PublicLayout() {
   return (
     <div className="d-flex flex-column min-vh-100">
@@ -42,19 +45,26 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/apply" element={<VisitorForm />} />
             <Route path="/enquiry-success" element={<EnquirySuccess />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route
-              path="/admin"
-              element={
-                <ProtectedRoute>
-                  <AdminDashboard />
-                </ProtectedRoute>
-              }
-            />
             <Route path="*" element={<NotFound />} />
+          </Route>
+
+          {/* Independent Auth Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
+          {/* Admin Dashboard Routes */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<AdminDashboard />} />
+            <Route path="applications" element={<AdminApplications />} />
           </Route>
 
           {/* Student Dashboard Routes */}

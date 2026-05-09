@@ -77,8 +77,8 @@ function StudentCourse() {
         </button>
         <button
           type="button"
-          className="btn text-white"
-          style={{ backgroundColor: "#16a34a", border: "none" }}
+          className="btn text-white px-4"
+          style={{ backgroundColor: "#1d4ed8", border: "none" }}
           onClick={handleNext}
         >
           Next
